@@ -20,17 +20,12 @@ const CreateMission = () => {
   const [altitude, setAltitude] = useState("120");
   const [latitude, setLatitude] = useState("37.7749");
   const [longitude, setLongitude] = useState("-122.4194");
-  const [missionType, setMissionType] = useState("survey");
-  // const [coordinates, setCoordinates] = useState("");
-  const [previewPath, setPreviewPath] = useState<Array<{ lat: number; lng: number }>>([]);
   const [surveyArea, setSurveyArea] = useState<
     { lat: number; lng: number }[]
   >([]);
   const [flightPath, setFlightPath] = useState<
     { lat: number; lng: number }[]
   >([]);
-  const [drawMode, setDrawMode] = useState<"polygon" | "polyline">("polygon");
-
 
   const { data: drones = [] } = useQuery({
     queryKey: ['drones'],
@@ -152,23 +147,7 @@ const CreateMission = () => {
                   placeholder="0"
                 />
               </div>
-
-              {/* <div className="space-y-2">
-                <Label htmlFor="coordinates">Flight Path Coordinates</Label>
-                <Textarea
-                  id="coordinates"
-                  value={coordinates}
-                  onChange={(e) => setCoordinates(e.target.value)}
-                  placeholder="Enter coordinates (lat, lng) one per line:&#10;40.7128, -74.0060&#10;40.7140, -74.0070&#10;40.7150, -74.0080"
-                  className="h-32"
-                />
-                <Button type="button" variant="outline" onClick={generateFlightPath} className="w-full">
-                  Generate Flight Path Preview
-                </Button>
-              </div> */}
-
               
-
               <Button type="submit" className="w-full" disabled={!selectedDrone}>
                 Create Mission
               </Button>
@@ -178,10 +157,6 @@ const CreateMission = () => {
 
         {/* Flight Path Preview */}
         <Card>
-          {/* <select value={drawMode} onChange={(e) => setDrawMode(e.target.value as "polygon" | "polyline")}>
-            <option value="polygon">Draw Survey Area</option>
-            <option value="polyline">Draw Flight Path</option>
-          </select> */}
           <CardHeader>
             <CardTitle>Create Survey region</CardTitle>
           </CardHeader>
@@ -197,33 +172,7 @@ const CreateMission = () => {
               }}
               latitude={parseFloat(latitude)} 
               longitude={parseFloat(longitude)} 
-              // drawMode={drawMode}
             />
-            {/* <div className="space-y-4">
-              {previewPath.length > 0 && (
-                <div className="text-sm text-muted-foreground">
-                  Waypoints: {previewPath.length} | 
-                  Estimated Distance: {((previewPath.length - 1) * 0.5).toFixed(1)}km
-                </div>
-              )}
-              
-              {previewPath.length > 0 ? (
-                <Suspense fallback={
-                  <div className="h-96 rounded-lg overflow-hidden bg-muted flex items-center justify-center">
-                    <p className="text-muted-foreground">Loading map...</p>
-                  </div>
-                }>
-                  <CreateMissionMap previewPath={previewPath} />
-                </Suspense>
-              ) : (
-                <div className="flex items-center justify-center h-96 bg-muted rounded-lg">
-                  <div className="text-center text-muted-foreground">
-                    <p>Enter coordinates and generate flight path</p>
-                    <p className="text-sm mt-2">to see preview here</p>
-                  </div>
-                </div>
-              )}
-            </div> */}
           </CardContent>
         </Card>
       </div>

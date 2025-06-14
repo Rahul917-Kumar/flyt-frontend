@@ -5,15 +5,12 @@ type Props = {
     onDrawComplete: (coordinates: { lat: number; lng: number }[], type:"polygon" | "polyline") => void;
     latitude: number;
     longitude: number;
-    // drawMode: "polygon" | "polyline";
 };
 
 export default function PolygonMap({ onDrawComplete, latitude, longitude }: Props) {
     const mapRef = useRef<HTMLDivElement | null>(null);
     const polygonRef = useRef<google.maps.Polygon | null>(null); // <-- store current polygon
     const polylineRef = useRef<google.maps.Polyline | null>(null);
-    const drawingManagerRef = useRef<google.maps.drawing.DrawingManager | null>(null);
-
 
     useEffect(() => {
         const initMap = () => {
@@ -29,11 +26,6 @@ export default function PolygonMap({ onDrawComplete, latitude, longitude }: Prop
                 drawingControl: true,
                 drawingControlOptions: {
                     position: window.google.maps.ControlPosition.TOP_CENTER,
-                    // drawingModes: [google.maps.drawing.OverlayType.POLYGON],
-                    // drawingModes:
-                    //     drawMode === "polygon"
-                    //         ? [window.google.maps.drawing.OverlayType.POLYGON]
-                    //         : [window.google.maps.drawing.OverlayType.POLYLINE],
                     drawingModes: [
                         window.google.maps.drawing.OverlayType.POLYGON,
                         window.google.maps.drawing.OverlayType.POLYLINE,
@@ -76,22 +68,6 @@ export default function PolygonMap({ onDrawComplete, latitude, longitude }: Prop
                 }));
 
                 onDrawComplete(coords, event.type); 
-
-                // if (event.type === "polygon") {
-                //     if (polygonRef.current) {
-                //         polygonRef.current.setMap(null);
-                //     }
-                //     const polygon = event.overlay as google.maps.Polygon;
-                //     polygonRef.current = polygon;
-
-                //     const path = polygon.getPath();
-                //     const coords = path.getArray().map((latLng) => ({
-                //         lat: latLng.lat(),
-                //         lng: latLng.lng(),
-                //     }));
-
-                //     onDrawComplete(coords); // Send to parent
-                // }
             });
         };
 
@@ -106,18 +82,6 @@ export default function PolygonMap({ onDrawComplete, latitude, longitude }: Prop
             initMap();
         }
     }, [ latitude, longitude]);
-
-    // useEffect(() => {
-    //     if (!drawingManagerRef.current || !window.google) return;
-
-    //     const mode =
-    //         drawMode === "polygon"
-    //             ? window.google.maps.drawing.OverlayType.POLYGON
-    //             : window.google.maps.drawing.OverlayType.POLYLINE;
-
-    //     drawingManagerRef.current.setDrawingMode(mode);
-    // }, [drawMode]);
     
-
     return <div ref={mapRef} style={{ width: "100%", height: "500px" }} />;
 }

@@ -12,27 +12,12 @@ const MissionMap = lazy(() => import("@/components/MissionMap"));
 
 const MissionDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const [currentPosition, setCurrentPosition] = useState(0);
 
   const { data: mission } = useQuery({
     queryKey: ['mission', id],
     queryFn: () => api.getMission(id!),
     enabled: !!id,
   });
-
-  // Simulate drone movement along flight path
-  // useEffect(() => {
-  //   if (!mission || mission.status !== 'in_progress') return;
-
-  //   const interval = setInterval(() => {
-  //     setCurrentPosition(prev => {
-  //       const newPos = Math.min(prev + 1, mission.flightPath.length - 1);
-  //       return newPos;
-  //     });
-  //   }, 2000);
-
-  //   return () => clearInterval(interval);
-  // }, [mission]);
 
   if (!mission) {
     return (

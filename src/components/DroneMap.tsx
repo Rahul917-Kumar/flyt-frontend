@@ -63,8 +63,8 @@ const DroneMap = ({ drones }: DroneMapProps) => {
                     {drone.status}
                   </span>
                 </p>
-                <p className="text-sm">Battery: {drone.battery}%</p>
-                <p className="text-sm">Last Update: {new Date(drone.lastUpdate).toLocaleTimeString()}</p>
+                <p className="text-sm">Battery: {drone.battery_level}%</p>
+                <p className="text-sm">Last Update: {new Date(drone.updated_at).toLocaleTimeString()}</p>
               </div>
             </Popup>
           </Marker>

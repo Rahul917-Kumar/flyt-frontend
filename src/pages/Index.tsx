@@ -22,7 +22,7 @@ const Index = () => {
     completed: missions.filter(m => m.status === 'completed').length,
     inProgress: missions.filter(m => m.status === 'in_progress').length,
     aborted: missions.filter(m => m.status === 'aborted').length,
-    pending: missions.filter(m => m.status === 'pending').length,
+    pending: missions.filter(m => m.status === 'planned').length,
   };
 
   const droneStats = {
@@ -176,7 +176,7 @@ const Index = () => {
                   </Badge>
                   <div>
                     <p className="font-medium">{mission.id}</p>
-                    <p className="text-sm text-muted-foreground">Drone: {mission.droneId}</p>
+                    <p className="text-sm text-muted-foreground">Drone: {mission.drone}</p>
                   </div>
                 </div>
                 <div className="text-right">
