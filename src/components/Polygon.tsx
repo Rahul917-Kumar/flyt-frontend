@@ -98,7 +98,7 @@ export default function PolygonMap({ onDrawComplete, latitude, longitude }: Prop
         if (!window.google) {
             const script = document.createElement("script");
             script.src =
-                "https://maps.googleapis.com/maps/api/js?key=AIzaSyCKLdp5Iqth0HbquleWHenUdYKU6EDVzZc&libraries=drawing";
+                "https://maps.googleapis.com/maps/api/js?key=<api_key>&libraries=drawing";
             script.async = true;
             script.onload = initMap;
             document.head.appendChild(script);
